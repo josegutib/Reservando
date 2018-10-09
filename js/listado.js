@@ -26,6 +26,13 @@ Listado.prototype.buscarRestaurante = function(id) {
     return "No se ha encontrado ningún restaurant";
 }
 
+// Obtiene una lista de elementos únicos.
+//Esta función se reutliza en obtenerRubros, obtenerHorarios y obtenerUbicaciones.
+function singletizer (several){
+  let single = several.filter((elem,index,self) => index === self.indexOf(elem)).sort();
+  return single;
+}
+
 //Obtiene todas las ciudades de los restaurantes sin repetidos
 Listado.prototype.obtenerUbicaciones = function() {
     //Array donde se van a ir agregando las ciudades (van a estar repetidas)
@@ -41,13 +48,9 @@ Listado.prototype.obtenerUbicaciones = function() {
     //
     // return ciudadesUnicas.sort();
     //
-    singletizer(ciudadesRep);
+    return singletizer(ciudadesRep);
 }
 
-function singletizer (several){
-  let single = several.filter((elem,index,self) => index === self.indexOf(elem)).sort();
-  return single;
-}
 
 //Obtiene todos los rubros de los restaurantes sin repetidos. Su funcionamiento es similar a obtC()
 Listado.prototype.obtenerRubros = function() {
@@ -61,7 +64,7 @@ Listado.prototype.obtenerRubros = function() {
     // });
     //
     // return rubrosUnicos.sort();
-    singletizer(rubrosRep);
+    return singletizer(rubrosRep);
 }
 
 //Obtiene todos los horarios de los restaurantes (sin repetidos). Está funcionalidad es un poco más compleja ya que un restaurante
@@ -89,7 +92,7 @@ Listado.prototype.obtenerHorarios = function() {
     // });
     //
     // return horariosUnicos.sort();
-    singletizer(horariosRep);
+    return singletizer(horariosRep);
 }
 
 //Función que recibe los filtros que llegan desde el HTML y filtra el arreglo de restaurantes.
