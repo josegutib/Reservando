@@ -35,11 +35,18 @@ Listado.prototype.obtenerUbicaciones = function() {
         ciudadesRep.push(this.restaurantes[i].ubicacion);
     }
     //Se crea un nuevo array donde se van a agregar las ciudades pero sin repetirse
-    var ciudadesUnicas = ciudadesRep.filter(function(elem, index, self) {
-        return index === self.indexOf(elem);
-    });
+    // var ciudadesUnicas = ciudadesRep.filter(function(elem, index, self) {
+    //     return index === self.indexOf(elem);
+    // });
+    //
+    // return ciudadesUnicas.sort();
+    //
+    singletizer(ciudadesRep);
+}
 
-    return ciudadesUnicas.sort();
+function singletizer (several){
+  let single = several.filter((elem,index,self) => index === self.indexOf(elem)).sort();
+  return single;
 }
 
 //Obtiene todos los rubros de los restaurantes sin repetidos. Su funcionamiento es similar a obtC()
@@ -49,11 +56,12 @@ Listado.prototype.obtenerRubros = function() {
         rubrosRep.push(this.restaurantes[i].rubro);
     }
 
-    var rubrosUnicos = rubrosRep.filter(function(elem, index, self) {
-        return index === self.indexOf(elem);
-    });
-
-    return rubrosUnicos.sort();
+    // var rubrosUnicos = rubrosRep.filter(function(elem, index, self) {
+    //     return index === self.indexOf(elem);
+    // });
+    //
+    // return rubrosUnicos.sort();
+    singletizer(rubrosRep);
 }
 
 //Obtiene todos los horarios de los restaurantes (sin repetidos). Está funcionalidad es un poco más compleja ya que un restaurante
@@ -76,11 +84,12 @@ Listado.prototype.obtenerHorarios = function() {
     });
 
     //En este arreglo vamos a poner todos los horarios pero sin repetidos
-    var horariosUnicos = horariosRep.filter(function(elem, index, self) {
-        return index === self.indexOf(elem);
-    });
-
-    return horariosUnicos.sort();
+    // var horariosUnicos = horariosRep.filter(function(elem, index, self) {
+    //     return index === self.indexOf(elem);
+    // });
+    //
+    // return horariosUnicos.sort();
+    singletizer(horariosRep);
 }
 
 //Función que recibe los filtros que llegan desde el HTML y filtra el arreglo de restaurantes.
