@@ -41,13 +41,8 @@ Listado.prototype.obtenerUbicaciones = function() {
     for (var i = 0; i < this.restaurantes.length; i++) {
         ciudadesRep.push(this.restaurantes[i].ubicacion);
     }
-    //Se crea un nuevo array donde se van a agregar las ciudades pero sin repetirse
-    // var ciudadesUnicas = ciudadesRep.filter(function(elem, index, self) {
-    //     return index === self.indexOf(elem);
-    // });
-    //
-    // return ciudadesUnicas.sort();
-    //
+
+
     return singletizer(ciudadesRep);
 }
 
@@ -59,11 +54,6 @@ Listado.prototype.obtenerRubros = function() {
         rubrosRep.push(this.restaurantes[i].rubro);
     }
 
-    // var rubrosUnicos = rubrosRep.filter(function(elem, index, self) {
-    //     return index === self.indexOf(elem);
-    // });
-    //
-    // return rubrosUnicos.sort();
     return singletizer(rubrosRep);
 }
 
@@ -86,12 +76,7 @@ Listado.prototype.obtenerHorarios = function() {
         });
     });
 
-    //En este arreglo vamos a poner todos los horarios pero sin repetidos
-    // var horariosUnicos = horariosRep.filter(function(elem, index, self) {
-    //     return index === self.indexOf(elem);
-    // });
-    //
-    // return horariosUnicos.sort();
+
     return singletizer(horariosRep);
 }
 
