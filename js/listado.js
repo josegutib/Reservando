@@ -26,6 +26,13 @@ Listado.prototype.buscarRestaurante = function(id) {
     return "No se ha encontrado ningún restaurant";
 }
 
+// Obtiene una lista de elementos únicos.
+//Esta función se reutliza en obtenerRubros, obtenerHorarios y obtenerUbicaciones.
+function singletizer (several){
+  let single = several.filter((elem,index,self) => index === self.indexOf(elem)).sort();
+  return single;
+}
+
 //Obtiene todas las ciudades de los restaurantes sin repetidos
 Listado.prototype.obtenerUbicaciones = function() {
     //Array donde se van a ir agregando las ciudades (van a estar repetidas)
@@ -34,13 +41,11 @@ Listado.prototype.obtenerUbicaciones = function() {
     for (var i = 0; i < this.restaurantes.length; i++) {
         ciudadesRep.push(this.restaurantes[i].ubicacion);
     }
-    //Se crea un nuevo array donde se van a agregar las ciudades pero sin repetirse
-    var ciudadesUnicas = ciudadesRep.filter(function(elem, index, self) {
-        return index === self.indexOf(elem);
-    });
 
-    return ciudadesUnicas.sort();
+
+    return singletizer(ciudadesRep);
 }
+
 
 //Obtiene todos los rubros de los restaurantes sin repetidos. Su funcionamiento es similar a obtC()
 Listado.prototype.obtenerRubros = function() {
@@ -49,11 +54,7 @@ Listado.prototype.obtenerRubros = function() {
         rubrosRep.push(this.restaurantes[i].rubro);
     }
 
-    var rubrosUnicos = rubrosRep.filter(function(elem, index, self) {
-        return index === self.indexOf(elem);
-    });
-
-    return rubrosUnicos.sort();
+    return singletizer(rubrosRep);
 }
 
 //Obtiene todos los horarios de los restaurantes (sin repetidos). Está funcionalidad es un poco más compleja ya que un restaurante
@@ -75,12 +76,8 @@ Listado.prototype.obtenerHorarios = function() {
         });
     });
 
-    //En este arreglo vamos a poner todos los horarios pero sin repetidos
-    var horariosUnicos = horariosRep.filter(function(elem, index, self) {
-        return index === self.indexOf(elem);
-    });
 
-    return horariosUnicos.sort();
+    return singletizer(horariosRep);
 }
 
 //Función que recibe los filtros que llegan desde el HTML y filtra el arreglo de restaurantes.
