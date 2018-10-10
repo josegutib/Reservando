@@ -35,12 +35,9 @@ function singletizer (several){
 
 //Obtiene todas las ciudades de los restaurantes sin repetidos
 Listado.prototype.obtenerUbicaciones = function() {
+
     //Array donde se van a ir agregando las ciudades (van a estar repetidas)
-    var ciudadesRep = [];
-    //Se recorre el array de restaurantes y se va agregando al array creado, todas las ubicaciones o ciudades encontradas
-    for (var i = 0; i < this.restaurantes.length; i++) {
-        ciudadesRep.push(this.restaurantes[i].ubicacion);
-    }
+    const ciudadesRep = this.restaurantes.map(res => res.ubicacion);
 
 
     return singletizer(ciudadesRep);
@@ -49,10 +46,8 @@ Listado.prototype.obtenerUbicaciones = function() {
 
 //Obtiene todos los rubros de los restaurantes sin repetidos. Su funcionamiento es similar a obtC()
 Listado.prototype.obtenerRubros = function() {
-    var rubrosRep = [];
-    for (var i = 0; i < this.restaurantes.length; i++) {
-        rubrosRep.push(this.restaurantes[i].rubro);
-    }
+
+    const rubrosRep = this.restaurantes.map(res => res.rubro);
 
     return singletizer(rubrosRep);
 }
@@ -62,11 +57,9 @@ Listado.prototype.obtenerRubros = function() {
 //convertir en uno solo
 Listado.prototype.obtenerHorarios = function() {
     //En este array se van a cargar los arrays de horarios, que luego vamos convertir en un solo array
-    var arregloHorarios = [];
     //Recorremos el array de restaurantes y vamos agregando todos los array de horarios
-    for (var i = 0; i < this.restaurantes.length; i++) {
-        arregloHorarios.push(this.restaurantes[i].horarios);
-    }
+
+    const arregloHorarios = this.restaurantes.map(res => res.horarios);
 
     //En este arreglo vamos a poner todos los horarios, uno por uno
     var horariosRep = [];
