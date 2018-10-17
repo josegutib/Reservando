@@ -108,5 +108,10 @@ describe('la funcion division',function(){
 })
 
 describe('nueva funcionalidad TDD, Reservas',function(){
-  
+  it('Se comprueba que devuelva precio base de una instancia de Reserva',function(){
+    const res1 = new Reserva(new Date(2019,04,15,11,00),8,350,'DES1');
+
+    expect(res1.calcularPrecioBase()).to.be.equal(2800)
+    console.log(res1)
+  })
 })
