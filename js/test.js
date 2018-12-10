@@ -68,50 +68,55 @@ describe('La funcion obtenerRestaurantes',function(){
   })
 })
 
-describe('La funcion sumatoria',function(){
-  it('debe sumar elementos de un array',function(){
-    const array = [1,2,3];
-    expect(sumatoria(array)).to.be.equal(6);
-  })
-
-  it('debe devolver 0 si esta vacio',function(){
-    const array = [];
-    expect(sumatoria(array)).to.be.equal(0);
-  })
-})
-
-describe('la funcion division',function(){
-  it('debe devolver el resultado dela division de dos parametros',function(){
-
-    expect(division(6,2)).to.be.equal(3);
-  })
-
-  it('debe devolver el resultado dela division de dos parametros',function(){
-
-    expect(division(6,0)).to.be.NaN;
-  })
-
-  it('debe devolver el resultado dela division de dos parametros',function(){
-
-    expect(division(0,0)).to.be.NaN;
-  })
-
-  it('debe devolver el resultado dela division de dos parametros',function(){
-
-    expect(division(8,1)).to.be.equal(8);
-  })
-
-  it('debe devolver el resultado dela division de dos parametros',function(){
-
-    expect(division(0,5)).to.be.equal(0);
-  })
-})
-
 describe('nueva funcionalidad TDD, Reservas',function(){
   it('Se comprueba que devuelva precio base de una instancia de Reserva',function(){
     const res1 = new Reserva(new Date(2019,04,15,11,00),8,350,'DES1');
 
     expect(res1.calcularPrecioBase()).to.be.equal(2800)
-    console.log(res1)
+    // expect(res1.calcularPrecioFinal()).to.be.equal(2310)
+  })
+  it('Se comprueba que devuelva precio final de una instancia de Reserva',function(){
+    const res2 = new Reserva(new Date(2019,04,15,11,00),8,350,'DES1');
+
+    expect(res2.calcularPrecioFinal()).to.be.equal(2170)
+})
+
+  it('Se verifica que la funcion calcularAdicionalPorcentaje devuelva los valores apropiados', function(){
+    const fecha1 = new Date(2018,07,24,20,30)
+    const fecha2 = new Date(2018,07,24,11,00)
+    const fecha3 = new Date(2018,07,23,13,00)
+    const fecha4 = new Date(2108,07,22,15,00)
+    const res3 = new Reserva(fecha1)
+    const res4 = new Reserva(fecha2)
+    const res5 = new Reserva(fecha3)
+    const res6 = new Reserva(fecha4)
+
+    expect(res3.calcularAdicionalPorcentaje()).to.be.equal(0.15)
+    expect(res4.calcularAdicionalPorcentaje()).to.be.equal(0.1)
+    expect(res5.calcularAdicionalPorcentaje()).to.be.equal(0.05)
+    expect(res6.calcularAdicionalPorcentaje()).to.be.equal(0)
+
+  })
+
+  it('Se verifica que la funcion calcularDescuentoPorcentaje devuelva los valores apropiados', function(){
+    const res7 = new Reserva(new Date(2018,07,12,11,00),4,350,'DES1');
+    const res8 = new Reserva(new Date(2018,07,12,11,00),7,350,'DES1');
+    const res9 = new Reserva(new Date(2018,07,12,11,00),15,350,'DES1');
+    const res10 = new Reserva(new Date(2018,07,12,11,00),0,350,'DES1');
+
+    expect(res7.calcularDescuentoPorcentaje()).to.be.equal(0.05)
+    expect(res8.calcularDescuentoPorcentaje()).to.be.equal(0.1)
+    expect(res9.calcularDescuentoPorcentaje()).to.be.equal(0.15)
+    expect(res10.calcularDescuentoPorcentaje()).to.be.equal(0)
+  })
+
+  it('Se verifica que la funcion calcularDescuentoFijo devuelva los valores correctos', function(){
+    const res11 = new Reserva(new Date(2018,07,12,11,00),4,350,'DES1');
+    const res12 = new Reserva(new Date(2018,07,12,11,00),4,350,'DES200');
+    const res13 = new Reserva(new Date(2018,07,12,11,00),4,350);
+
+    expect(res11.calcularDescuentoFijo()).to.be.equal(350)
+    expect(res12.calcularDescuentoFijo()).to.be.equal(200)
+    expect(res13.calcularDescuentoFijo()).to.be.equal(0)
   })
 })
