@@ -68,41 +68,88 @@ describe('La funcion obtenerRestaurantes',function(){
   })
 })
 
-describe('La funcion sumatoria',function(){
-  it('debe sumar elementos de un array',function(){
-    const array = [1,2,3];
-    expect(sumatoria(array)).to.be.equal(6);
-  })
+describe('nueva funcionalidad TDD, Reservas',function(){
+  it('Se comprueba que devuelva precio base de una instancia de Reserva',function(){
+    const res1 = new Reserva(new Date(2019,04,15,11,00),8,350,'DES1');
 
-  it('debe devolver 0 si esta vacio',function(){
-    const array = [];
-    expect(sumatoria(array)).to.be.equal(0);
+    expect(res1.calcularPrecioBase()).to.be.equal(2800)
   })
+  it('Se comprueba que devuelva precio final de una instancia de Reserva',function(){
+    const res2 = new Reserva(new Date(2019,04,15,11,00),8,350,'DES1');
+
+    expect(res2.calcularPrecioFinal()).to.be.equal(2170)
 })
 
-describe('la funcion division',function(){
-  it('debe devolver el resultado dela division de dos parametros',function(){
+  it('Se verifica que la funcion calcularAdicionalPorcentaje devuelva los valores apropiados', function(){
+    const fecha1 = new Date(2018,07,24,20,30)
+    const fecha2 = new Date(2018,07,24,11,00)
+    const fecha3 = new Date(2018,07,23,13,00)
+    const fecha4 = new Date(2108,07,22,15,00)
+    const res3 = new Reserva(fecha1)
+    const res4 = new Reserva(fecha2)
+    const res5 = new Reserva(fecha3)
+    const res6 = new Reserva(fecha4)
 
-    expect(division(6,2)).to.be.equal(3);
+    expect(res3.calcularAdicionalPorcentaje()).to.be.equal(0.15)
+    expect(res4.calcularAdicionalPorcentaje()).to.be.equal(0.1)
+    expect(res5.calcularAdicionalPorcentaje()).to.be.equal(0.05)
+    expect(res6.calcularAdicionalPorcentaje()).to.be.equal(0)
+
   })
 
-  it('debe devolver el resultado dela division de dos parametros',function(){
+  it('Se verifica que la funcion calcularDescuentoPorcentaje devuelva los valores apropiados', function(){
+    const res7 = new Reserva(new Date(2018,07,12,11,00),4,350,'DES1');
+    const res8 = new Reserva(new Date(2018,07,12,11,00),7,350,'DES1');
+    const res9 = new Reserva(new Date(2018,07,12,11,00),15,350,'DES1');
+    const res10 = new Reserva(new Date(2018,07,12,11,00),0,350,'DES1');
 
-    expect(division(6,0)).to.be.NaN;
+    expect(res7.calcularDescuentoPorcentaje()).to.be.equal(0.05)
+    expect(res8.calcularDescuentoPorcentaje()).to.be.equal(0.1)
+    expect(res9.calcularDescuentoPorcentaje()).to.be.equal(0.15)
+    expect(res10.calcularDescuentoPorcentaje()).to.be.equal(0)
   })
 
-  it('debe devolver el resultado dela division de dos parametros',function(){
+  it('Se verifica que la funcion calcularDescuentoFijo devuelva los valores correctos', function(){
+    const res11 = new Reserva(new Date(2018,07,12,11,00),4,350,'DES1');
+    const res12 = new Reserva(new Date(2018,07,12,11,00),4,350,'DES200');
+    const res13 = new Reserva(new Date(2018,07,12,11,00),4,350);
 
-    expect(division(0,0)).to.be.NaN;
+    expect(res11.calcularDescuentoFijo()).to.be.equal(350)
+    expect(res12.calcularDescuentoFijo()).to.be.equal(200)
+    expect(res13.calcularDescuentoFijo()).to.be.equal(0)
   })
 
-  it('debe devolver el resultado dela division de dos parametros',function(){
+  it('Se comprueba que la funcion esViernesSabadoODomingo devuelva los valores correctos', function(){
+    const fecha5 = new Date(2018,07,10,11,00);
+    const fecha6 = new Date(2018,07,11,11,00);
+    const fecha7 = new Date(2018,07,12,11,00);
+    const fecha8 = new Date(2018,07,13,11,00);
 
-    expect(division(8,1)).to.be.equal(8);
+    // Se espera valor TRUE al ser Viernes
+    expect(esViernesSabadoODomingo(fecha5)).to.be.equal(true)
+    // Se espera valor TRUE al ser Sábado
+    expect(esViernesSabadoODomingo(fecha6)).to.be.equal(true)
+    // Se espera valor TRUE al ser domingo
+    expect(esViernesSabadoODomingo(fecha7)).to.be.equal(true)
+    // Se espera valor FALSE al ser lunes
+    expect(esViernesSabadoODomingo(fecha8)).to.be.equal(false)
+
   })
 
-  it('debe devolver el resultado dela division de dos parametros',function(){
+  it('Se comprueba que la funcion esHorarioEspecial devuelva los valores correctos', function(){
+    const fecha9 = new Date(2018,07,10,14,00);
+    const fecha10 = new Date(2018,07,11,21,00);
+    const fecha11 = new Date(2018,07,12,10,00);
+    const fecha12 = new Date(2018,07,13,19,00);
 
-    expect(division(0,5)).to.be.equal(0);
+    // Se espera valor TRUE porque las 14:00hs estan dentro del rango horario especial
+    expect(esHorarioEspecial(fecha9)).to.be.equal(true)
+    // Se espera valor TRUE porque las 21:00hs estan dentro del rango horario especial
+    expect(esHorarioEspecial(fecha10)).to.be.equal(true)
+    // Se espera valor FALSE porque las 10:00hs no estan dentro del rango horario especial
+    expect(esHorarioEspecial(fecha11)).to.be.equal(false)
+    // Se espera valor FALSE porque las 19:00hs no estan dentro del rango horario especial
+    expect(esHorarioEspecial(fecha12)).to.be.equal(false)
+
   })
 })

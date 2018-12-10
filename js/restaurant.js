@@ -54,9 +54,9 @@ function promedio(numeros){
   return (sumatoria(numeros))/numeros.length;
 }
 
-function division(a,b){
-  if(b===0){
-    return NaN
-  }
-  return a/b;
-}
+// function division(a,b){
+//   if(b===0){
+//     return NaN
+//   }
+//   return a/b;
+// }
