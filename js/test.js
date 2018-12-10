@@ -73,7 +73,6 @@ describe('nueva funcionalidad TDD, Reservas',function(){
     const res1 = new Reserva(new Date(2019,04,15,11,00),8,350,'DES1');
 
     expect(res1.calcularPrecioBase()).to.be.equal(2800)
-    // expect(res1.calcularPrecioFinal()).to.be.equal(2310)
   })
   it('Se comprueba que devuelva precio final de una instancia de Reserva',function(){
     const res2 = new Reserva(new Date(2019,04,15,11,00),8,350,'DES1');
@@ -118,5 +117,39 @@ describe('nueva funcionalidad TDD, Reservas',function(){
     expect(res11.calcularDescuentoFijo()).to.be.equal(350)
     expect(res12.calcularDescuentoFijo()).to.be.equal(200)
     expect(res13.calcularDescuentoFijo()).to.be.equal(0)
+  })
+
+  it('Se comprueba que la funcion esViernesSabadoODomingo devuelva los valores correctos', function(){
+    const fecha5 = new Date(2018,07,10,11,00);
+    const fecha6 = new Date(2018,07,11,11,00);
+    const fecha7 = new Date(2018,07,12,11,00);
+    const fecha8 = new Date(2018,07,13,11,00);
+
+    // Se espera valor TRUE al ser Viernes
+    expect(esViernesSabadoODomingo(fecha5)).to.be.equal(true)
+    // Se espera valor TRUE al ser Sábado
+    expect(esViernesSabadoODomingo(fecha6)).to.be.equal(true)
+    // Se espera valor TRUE al ser domingo
+    expect(esViernesSabadoODomingo(fecha7)).to.be.equal(true)
+    // Se espera valor FALSE al ser lunes
+    expect(esViernesSabadoODomingo(fecha8)).to.be.equal(false)
+
+  })
+
+  it('Se comprueba que la funcion esHorarioEspecial devuelva los valores correctos', function(){
+    const fecha9 = new Date(2018,07,10,14,00);
+    const fecha10 = new Date(2018,07,11,21,00);
+    const fecha11 = new Date(2018,07,12,10,00);
+    const fecha12 = new Date(2018,07,13,19,00);
+
+    // Se espera valor TRUE porque las 14:00hs estan dentro del rango horario especial
+    expect(esHorarioEspecial(fecha9)).to.be.equal(true)
+    // Se espera valor TRUE porque las 21:00hs estan dentro del rango horario especial
+    expect(esHorarioEspecial(fecha10)).to.be.equal(true)
+    // Se espera valor FALSE porque las 10:00hs no estan dentro del rango horario especial
+    expect(esHorarioEspecial(fecha11)).to.be.equal(false)
+    // Se espera valor FALSE porque las 19:00hs no estan dentro del rango horario especial
+    expect(esHorarioEspecial(fecha12)).to.be.equal(false)
+
   })
 })
